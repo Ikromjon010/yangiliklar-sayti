@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Yangiliklar</title>
+</head>
+<body>
+
+{% for news in all_news %}
+
+    <h2>
+        <a href="{% url 'news_detail_page' news.pk %}">
+            {{ news.title }}
+        </a>
+    </h2>
+
+{% endfor %}
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ news_detail.title | truncatewords:2 }}</title>
+</head>
+<body>
+
+<h1>{{ news_detail.title }}</h1>
+<h6>{{ news_detail.publish_time }}</h6>
+<p>{{ news_detail.body }}</p>
+<img src="{{ news_detail.image.url }}" alt="bu rasm">
+
+
+</body>
+</html>
