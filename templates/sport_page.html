@@ -20,7 +20,16 @@
               <li><a href="#">Technology</a></li>
               <li class="active">Mobile</li>
             </ol>
-            <h1>{{ news_detail.title }}</h1>
+            <h1>Sport yangiliklari </h1>
+
+            {% for news in sport_news_all %}
+              <h3>{{ news.title }}</h3>
+            {% endfor %}
+
+
+
+
+
             <div class="post_commentbox"> <a href="#"><i class="fa fa-user"></i>Wpfreeware</a> <span><i class="fa fa-calendar"></i>{{ news_detail.publish_time }}</span> <a href="#"><i class="fa fa-tags"></i>{{ news_detail.category }}</a> </div>
             <div class="single_page_content"> <img class="img-center" src="{{ news_detail.image.url }}" alt="">
               <p>{{ news_detail.body }}</p>
