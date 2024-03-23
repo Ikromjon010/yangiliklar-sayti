@@ -23,7 +23,7 @@
             <h1>Sport yangiliklari </h1>
 
             {% for news in sport_news_all %}
-              <h3>{{ news.title }}</h3>
+            <a href="{{ news.get_absolute_url }}"><h3>{{ news.title }}</h3></a>
             {% endfor %}
 
 

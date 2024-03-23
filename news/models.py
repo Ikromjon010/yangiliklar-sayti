@@ -46,6 +46,6 @@ class News(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("news_detail", args=[self.slug])
+        return reverse("news_detail_page", args=[self.slug])
 
 

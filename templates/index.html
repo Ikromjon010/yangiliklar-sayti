@@ -14,9 +14,9 @@
         <div class="slick_slider">
 
           {% for news in all_news %}
-          <div class="single_iteam"> <a href="{% url 'news_detail_page' news.pk %}"> <img src="{{ news.image.url }}" alt=""></a>
+          <div class="single_iteam"> <a href="{{ news.get_absolute_url }}"> <img src="{{ news.image.url }}" alt=""></a>
             <div class="slider_article">
-              <h2><a class="slider_tittle" href="{% url 'news_detail_page' news.pk %}">{{ news.title }}</a></h2>
+              <h2><a class="slider_tittle" href="{{ news.get_absolute_url }}">{{ news.title }}</a></h2>
               <p>{{ news.body | truncatewords:15 }}</p>
             </div>
           </div>

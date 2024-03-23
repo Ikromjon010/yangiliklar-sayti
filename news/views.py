@@ -41,8 +41,8 @@ class NewsListView(ListView):
 
 
 
-def news_detail_view(request, id):
-    detail = News.objects.get(id = id)
+def news_detail_view(request, slug):
+    detail = News.objects.get(slug = slug)
 
     context = {
         'news_detail': detail,
