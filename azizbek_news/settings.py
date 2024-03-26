@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'account',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
 
     # local apps
     'news',
+
 ]
 
 MIDDLEWARE = [
@@ -129,7 +131,7 @@ STATICFILES_FINDERS = [
 MEDIA_ROOT = BASE_DIR / 'media/'
 MEDIA_URL = 'media/'
 
-
+LOGIN_REDIRECT_URL = 'user_profile'
 
 
 # Default primary key field type

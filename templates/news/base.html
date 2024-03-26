@@ -2,10 +2,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    {% block title %}
+  <title>
 
+    {% block title %}
     {% endblock title %}
 
+</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,9 +41,12 @@
               <li><a href="#">About</a></li>
               <li><a href="pages/contact.html">Contact</a></li>
             </ul>
+
           </div>
           <div class="header_top_right">
-            <p>Friday, December 05, 2045</p>
+            <p><a href="{% url 'login' %}" style="color:red">login</a></p>
+            <p><a href="{% url 'user_profile' %}" style="color:green">my profile</a></p>
+            <p>{% now "jS F Y H:i" %}</p>
           </div>
         </div>
       </div>
