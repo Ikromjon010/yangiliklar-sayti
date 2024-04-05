@@ -16,4 +16,9 @@
     <label>ty: </label> <input value="{{ profile.date_of_birth }}" readonly placeholder="kiritilmagan">
 
 
+    <h3>
+        <a href="{% url 'edit_user_information' %}" style="color:green"> Edit user </a> <br>
+        <a href="{% url 'password_change' %}" style="color:red"> Parolingizni alishtiring </a>
+    </h3>
+
 {% endblock content %}
