@@ -21,20 +21,64 @@
               <li class="active">Mobile</li>
             </ol>
             <h1>{{ news_detail.title }}</h1>
-            <div class="post_commentbox"> <a href="#"><i class="fa fa-user"></i>Wpfreeware</a> <span><i class="fa fa-calendar"></i>{{ news_detail.publish_time }}</span> <a href="#"><i class="fa fa-tags"></i>{{ news_detail.category }}</a> </div>
+            <div class="post_commentbox"> <a href="#"><i class="fa fa-user"></i>Wpfreeware</a> <span>
+                <i class="fa fa-calendar"></i>{{ news_detail.publish_time }}</span> <a href="#">
+                <i class="fa fa-tags"></i>{{ news_detail.category }}</a>
+                <i class="fa fa-eye"></i>{{ comment_count }}</a>
+
+            </div>
             <div class="single_page_content"> <img class="img-center" src="{{ news_detail.image.url }}" alt="">
               <p>{{ news_detail.body }}</p>
               <blockquote> {{ news_detail.body | truncatewords:30 }}  </blockquote>
-              <center>
-              <a href="{% url 'update_page' news_detail.slug %}">
-                <button class="btn default-btn">
-                  Taxrirlash
-                </button>
-              </a>
-              <a href="{% url 'delete_page' news_detail.slug %}">
-                <button class="btn btn-red">O'chirish</button>
-              </a>
-              </center>
+
+
+                {% if request.user.is_authenticated and request.user.is_superuser %}
+
+
+        | <a href="{% url 'update_page' news_detail.slug %}">Taxrirlash </a>|
+          <a href="{% url 'delete_page' news_detail.slug %}"> O'chirish </a>|
+
+
+                {% endif %}
+
+<h3>Jami izohlar soni {{ comment_count }} ta</h3>
+
+        {% for comment in comments %}
+
+            <div class="comments" style="padding: 10px">
+            <p class="font-weight-bold">
+                {{ comment.user }}
+            <span class="text-muted font-weight-normal">
+                {{ comment.created_time }}
+            </span>
+            </p>
+            {{ comment.body | linebreaks }}
+            </div>
+        {% endfor %}
+
+
+<!--     </form>-->
+    {% if user.is_authenticated %}
+    <div class="col-md-8 card mb-4 mt-3">
+     <div class="card-body">
+         <h3>Izoh qoldirish</h3>
+         <form method="POST" style="margin-top: 1.3em">{% csrf_token %}
+             {{ comment_form.as_p }}
+             <button type="submit" class="btn btn-primary btn-lg">
+                 Yuborish
+             </button>
+         </form>
+     </div>
+    </div>
+    {% else %}
+    <div class="card-body">
+    <p class="text-danger">Faqatgina ro'yhatdan o'tgan foydalanuvchilar izoh qoldirishi mumkin</p>
+    <p>Izoh qoldirish uchun
+        <a href="{% url 'user_register' %}" style="color: red">ro'yhatdan o'ting </a>
+        yoki <a href="{% url 'login' %}" style="color: blue">Saytga kiring</a>
+    </p>
+    </div>
+    {% endif %}
 
 
           </div>

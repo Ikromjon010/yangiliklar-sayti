@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, DeleteView, CreateView
 
+from news.forms import CommentForm
 from news.models import News, Category
 
 
@@ -43,11 +44,34 @@ class NewsListView(ListView):
 
 
 def news_detail_view(request, slug):
-    detail = News.objects.get(slug = slug)
+    news = News.objects.get(slug = slug)
+
+    comments = news.comments.filter(active=True)
+    new_comment = None
+    comment_count = len(comments)
+
+    if request.method == 'POST':
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.news = news
+            new_comment.user = request.user
+            new_comment.save()
+            comment_form = CommentForm()
+
+
+
+    else:
+        comment_form = CommentForm()
 
     context = {
-        'news_detail': detail,
+        "news_detail": news,
+        'comments': comments,
+        'new_comment': new_comment,
+        'comment_form': comment_form,
+        'comment_count': comment_count,
     }
+
 
     return render(request, 'news/single_page.html', context=context)
 
