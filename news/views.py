@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, DeleteView, CreateView
@@ -45,7 +46,7 @@ class NewsListView(ListView):
 
 def news_detail_view(request, slug):
     news = News.objects.get(slug = slug)
-
+    category_news = News.published.filter(category__name=news.category)[:4]
     comments = news.comments.filter(active=True)
     new_comment = None
     comment_count = len(comments)
@@ -70,6 +71,7 @@ def news_detail_view(request, slug):
         'new_comment': new_comment,
         'comment_form': comment_form,
         'comment_count': comment_count,
+        'category_news': category_news,
     }
 
 
@@ -102,3 +104,17 @@ class NewsCreateView(CreateView):
     model = News
     fields = ('title','slug', 'body', 'category', 'status', 'image')
     template_name = 'crud/create.html'
+
+
+class SearchResultsList(ListView):
+    model = News
+    template_name = 'news/search_results.html'
+    context_object_name = 'barcha_yangiliklar'
+
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        return News.objects.filter(
+            Q(title__icontains=query) | Q(body__icontains=query)
+        )
+
